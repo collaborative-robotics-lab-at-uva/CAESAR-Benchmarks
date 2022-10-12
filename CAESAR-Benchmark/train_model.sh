@@ -1,0 +1,38 @@
+srun singularity exec --nv pytorch_1-11_pl_1-6-1.sif python train_model.py \
+--dataset_name 'mog' \
+--valid_split_pct 0.2 \
+--view_modalities 'exo_view_image,ego_view_image,top_view_image' \
+--setting_names 'both_gaze_gesture,wrong_gaze_gesture' \
+--task_list 'is_contrastive' \
+--model_name 'base_model_vl_clip' \
+--fusion_model_name 'self_attention' \
+--exe_mode 'train' \
+--val_percent_check 1.0 \
+--num_sanity_val_steps 1 \
+--limit_test_batches 1.0 \
+--train_percent_check 1.0 \
+--compute_mode 'gpu' \
+--strategy 'ddp_spawn' \
+--num_workers 8 \
+--gpus "-1" \
+-bs 8 \
+-ep 4 \
+-lr 0.000003 \
+-cm 2 \
+-cl 2 \
+--image_scale 0.5 \
+--view_encoder_name 'resnet50' \
+--indi_modality_embedding_size 512 \
+--bbox_format 'xyxy' \
+--is_only_target_box \
+--restrict_instruction_template 'template_null' \
+-dfp '/datasets/path_name' \
+-msbd 'trained_model/' \
+-mcp 'model_ckpt' \
+-logbd 'log/' \
+--log_model_archi \
+-logf 'model_training.log' \
+-wdbln 'model_training' \
+--wandb_entity 'Your-Awesome-Team-Name' \
+--wandb_project_name 'CAESAR' \
+--is_test \
